@@ -80,11 +80,4 @@ jobs:
           twine check dist/*
 
       - name: Publish with Trusted Publisher (OIDC)
-        if: ${{ secrets.PYPI_API_TOKEN == '' }}
         uses: pypa/gh-action-pypi-publish@release/v1
-
-      - name: Publish with API token fallback
-        if: ${{ secrets.PYPI_API_TOKEN != '' }}
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
