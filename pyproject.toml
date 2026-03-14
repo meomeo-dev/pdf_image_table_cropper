@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pdf-image-table-cropper"
-version = "0.1.0"
+version = "0.1.1"
 description = "Crop image/table/code regions from PDF files and export metadata"
 readme = "README.en.md"
 requires-python = ">=3.10"
 authors = [{ name = "pdf-image-table-cropper maintainers" }]
-license = { text = "MIT" }
+license = "MIT"
 dependencies = [
   "httpx[socks]==0.28.1",
   "doclayout-yolo==0.0.4",
@@ -20,6 +20,11 @@ dependencies = [
   "torch>=2.6.0,<3",
   "transformers>=4.46.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/meomeo-dev/pdf_image_table_cropper"
+Repository = "https://github.com/meomeo-dev/pdf_image_table_cropper"
+Issues = "https://github.com/meomeo-dev/pdf_image_table_cropper/issues"
 
 [project.scripts]
 pdf-image-table-cropper = "pdf_cropper.cli:main"
