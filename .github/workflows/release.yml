@@ -81,3 +81,16 @@ jobs:
 
       - name: Publish with Trusted Publisher (OIDC)
         uses: pypa/gh-action-pypi-publish@release/v1
+
+  create_github_release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Create GitHub Release with generated notes
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
