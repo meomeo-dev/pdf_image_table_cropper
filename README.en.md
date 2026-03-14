@@ -8,6 +8,12 @@ No OCR. No full-text extraction.
 
 ## 1. Install
 
+Install from PyPI (recommended for production):
+
+```bash
+pip install pdf-image-table-cropper
+```
+
 Recommended for development:
 
 ```bash

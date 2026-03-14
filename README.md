@@ -6,6 +6,12 @@
 
 ## 1. 安装 (Install)
 
+PyPI 安装（推荐生产环境）：
+
+```bash
+pip install pdf-image-table-cropper
+```
+
 开发环境（推荐）：
 
 ```bash

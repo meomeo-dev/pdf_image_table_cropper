@@ -1,0 +1,90 @@
+name: Release to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Run tests if test suite exists
+        run: |
+          python -m pip install --upgrade pip pytest
+          if [ -d tests ]; then
+            pytest tests/
+          else
+            echo "No tests/ directory found, skip pytest"
+          fi
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Validate tag version matches pyproject
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+          import tomllib
+
+          tag = os.environ["REF_NAME"]
+          expected = tag[1:] if tag.startswith("v") else tag
+
+          pyproject = pathlib.Path("pyproject.toml")
+          data = tomllib.loads(pyproject.read_text(encoding="utf-8"))
+          project_version = data["project"]["version"]
+
+          if expected != project_version:
+              raise SystemExit(
+                  f"Version mismatch: tag={tag} expects {expected}, "
+                  f"pyproject={project_version}"
+              )
+
+          print(f"Version check passed: {expected}")
+          PY
+
+      - name: Build package
+        run: |
+          python -m pip install --upgrade pip "build>=1.4.0" "twine>=6.2.0"
+          python -m build
+
+      - name: Check distribution metadata
+        run: |
+          twine check dist/*
+
+      - name: Publish with Trusted Publisher (OIDC)
+        if: ${{ secrets.PYPI_API_TOKEN == '' }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Publish with API token fallback
+        if: ${{ secrets.PYPI_API_TOKEN != '' }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
