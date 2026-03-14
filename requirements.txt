@@ -1,0 +1,8 @@
+httpx[socks]==0.28.1
+doclayout-yolo==0.0.4
+huggingface-hub>=0.32.4
+opencv-python>=4.8.0
+pillow>=11.0.0
+pypdfium2>=4.30.0
+torch>=2.6.0,<3
+transformers>=4.46.0

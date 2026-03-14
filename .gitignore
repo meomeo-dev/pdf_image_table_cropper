@@ -1,0 +1,26 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment files
+.env
+
+# Runtime outputs
+output/
+
+# Local task artifacts
+.todo_tasks/
+
+# macOS
+.DS_Store
+
+# Type/check/test caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.python-version
+pdf_image_table_cropper.egg-info/
