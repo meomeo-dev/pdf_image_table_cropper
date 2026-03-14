@@ -88,7 +88,7 @@ pdf-image-table-cropper \
 Required:
 
 - `-i, --input-pdf`: input PDF path
-- `-o, --output-dir`: output root directory
+- `-o, --output-dir, --storage-root`: output root directory (alias)
 
 Core optional arguments:
 
@@ -106,6 +106,7 @@ Core optional arguments:
 - `--metadata-file` (default: `metadata.json`)
 - `--daemon-mode {off,auto,on}` model lifecycle mode (default: `off`)
 - `--daemon-socket` local Unix socket path
+  (default: `/tmp/pdf_cropper_modeld_<uid>.sock`)
 - `--daemon-idle-seconds` daemon idle timeout before auto-exit (default: `300`)
 - `--daemon-start-timeout` daemon startup wait timeout in seconds (default: `12`)
 - `--daemon-run-timeout`: timeout for waiting daemon job response;

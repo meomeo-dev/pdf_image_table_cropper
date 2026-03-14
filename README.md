@@ -86,7 +86,7 @@ pdf-image-table-cropper \
 必填：
 
 - `-i, --input-pdf`：输入 PDF 路径
-- `-o, --output-dir`：输出根目录
+- `-o, --output-dir, --storage-root`：输出根目录（别名参数）
 
 核心可选参数：
 
@@ -104,6 +104,7 @@ pdf-image-table-cropper \
 - `--metadata-file`，默认 `metadata.json`
 - `--daemon-mode {off,auto,on}`：模型生命周期模式，默认 `off`
 - `--daemon-socket`：本地 Unix Socket 路径
+  （默认 `/tmp/pdf_cropper_modeld_<uid>.sock`）
 - `--daemon-idle-seconds`：守护进程空闲回收秒数，默认 `300`
 - `--daemon-start-timeout`：守护进程启动等待秒数，默认 `12`
 - `--daemon-run-timeout`：等待守护任务完成的超时秒数，`0` 表示不限时（默认 `0`）
